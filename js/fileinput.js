@@ -1754,7 +1754,7 @@
                     self.uploadCount = 0;
                     self.uploadStatus = {};
                     self.uploadLog = [];
-                    self._setProgress(100);
+                    self._setProgress(101);
                 }, 100);
             };
             fnBefore = function (jqXHR) {
@@ -1916,7 +1916,7 @@
                 }
             };
             fnComplete = function () {
-                self._setProgress(100);
+                self._setProgress(101);
                 self.unlock();
                 self._initSuccessThumbs();
                 self._clearFileInput();
@@ -1976,7 +1976,7 @@
                 }
             };
             fnComplete = function () {
-                self._setProgress(100);
+                self._setProgress(101);
                 self.unlock();
                 self._clearFileInput();
                 self._raise('filebatchuploadcomplete', [self.filestack, self._getExtraData()]);
@@ -2337,7 +2337,7 @@
         },
         _setProgressCancelled: function () {
             var self = this;
-            self._setProgress(100, self.$progress, self.msgCancelled);
+            self._setProgress(101, self.$progress, self.msgCancelled);
         },
         _setProgress: function (p, $el, error) {
             var self = this, pct = Math.min(p, 100), template = pct < 100 ? self.progressTemplate :
@@ -2345,7 +2345,7 @@
                 pctLimit = self.progressUploadThreshold;
             $el = $el || self.$progress;
             if (!isEmpty(template)) {
-                if (pctLimit && pct > pctLimit) {
+                if (pctLimit && pct > pctLimit && p <= 100) {
                     $el.html(template.replace('{percent}%', self.msgUploadThreshold).replace(/\{percent}/g, pctLimit));
                 } else {
                     $el.html(template.replace(/\{percent}/g, pct));
@@ -2813,7 +2813,7 @@
                 data.abortData = self.ajaxAborted.data || {};
                 data.abortMessage = self.ajaxAborted.message;
                 self.cancel();
-                self._setProgress(100, self.$progress, self.msgCancelled);
+                self._setProgress(101, self.$progress, self.msgCancelled);
                 self._showUploadError(self.ajaxAborted.message, data, 'filecustomerror');
                 return true;
             }
